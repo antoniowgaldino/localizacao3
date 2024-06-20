@@ -1,0 +1,191 @@
+<!-- key = AIzaSyDlH165ZQT9IS3c5WHptaFeD88oto6GEYs -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localização e Data/Hora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        button {
+            display: block;
+            width: 170px;
+            height: 45px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #coordinates {
+            margin-bottom: 10px;
+        }
+
+        #address {
+            margin-bottom: 10px;
+        }
+
+        #datetime {
+            margin-bottom: 20px;
+        }
+
+        .link-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .link-container a {
+            display: block;
+            width: 150px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .link-container a:hover {
+            background-color: #0056b3;
+        }
+
+        #btn-link {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Localização e Data/Hora</h1>
+    <p id="coordinates">Coordenadas:</p>
+    <p id="address">Endereço:</p>
+    <p id="datetime">Data e Hora:</p>
+    <div class="link-container">
+        <div id="btn-link">
+            <a href="#" target="_blank">Google Maps</a>
+        </div>
+        <div id="btn-link">
+            <a href="#" target="_blank">WhatsApp</a>
+        </div>
+        <div>
+            <button onclick="executar()">Obter Localização</button>
+        </div>
+    </div>
+    <div id="map"></div>
+
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocalização não é suportada neste navegador.");
+            }
+        }
+
+        function ocultarDiv() {
+            var div = document.getElementById("btn-link");
+            if (div.style.display === "none") {
+                div.style.display = "block";
+            } else {
+                div.style.display = "none";
+            }
+        }
+
+        function executar() {
+            getLocation();
+            ocultarDiv();
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            // Exibindo mapa usando API do Google Maps
+            var mapDiv = document.getElementById('map');
+            var mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?center=' + latitude + ',' + longitude + '&zoom=18&size=400x300&markers=color:red%7Clabel:A%7C' + latitude + ',' + longitude + '&key=AIzaSyDlH165ZQT9IS3c5WHptaFeD88oto6GEYs';
+            mapDiv.innerHTML = '<img src="' + mapUrl + '" alt="Mapa">';
+
+            // Mostra as coordenadas na tela
+            var coordinatesDiv = document.getElementById("coordinates");
+            coordinatesDiv.textContent = `Coordenadas: Latitude ${latitude.toFixed(6)}, Longitude ${longitude.toFixed(6)}`;
+
+            // Obtém o endereço usando Geocodificação reversa do Google Maps
+            var geocoder = new google.maps.Geocoder();
+            var latlng = { lat: latitude, lng: longitude };
+            geocoder.geocode({ 'location': latlng }, function (results, status) {
+                if (status === 'OK') {
+                    if (results[0]) {
+                        var address = results[0].formatted_address;
+                        var addressDiv = document.getElementById("address");
+                        addressDiv.textContent = `Endereço: ${address}`;
+
+                        // Atualiza o link do Google Maps
+                        var googleMapsLink = document.getElementById("google-maps-link");
+                        googleMapsLink.href = `https://maps.google.com/?q=${latitude},${longitude}`;
+
+                        // Atualiza o link do WhatsApp
+                        var whatsappLink = document.getElementById("whatsapp-link");
+                        whatsappLink.href = `https://wa.me/?text=Minha%20localiza%C3%A7%C3%A3o%3A%0A${latitude.toFixed(6)}%2C%20${longitude.toFixed(6)}%0A${encodeURIComponent(address)}%0Ahttps://maps.google.com/?q=${latitude},${longitude}`;
+
+                        // Mostra os links após obter a localização
+                        var linkContainer = document.querySelector(".link-container");
+                        linkContainer.style.display = 'flex';
+                    } else {
+                        console.error('Nenhum resultado encontrado para esta localização.');
+                    }
+                } else {
+                    console.error('Geocoder falhou devido a: ' + status);
+                }
+            });
+
+            // Mostra a data e hora atuais
+            var now = new Date();
+            var datetimeDiv = document.getElementById("datetime");
+            datetimeDiv.textContent = `Data e Hora: ${now.toLocaleString()}`;
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("Permissão de geolocalização negada pelo usuário.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Localização indisponível.");
+                    break;
+                case error.TIMEOUT:
+                    alert("Tempo expirado para obter a localização.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("Erro desconhecido ao obter a localização.");
+                    break;
+            }
+        }
+    </script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlH165ZQT9IS3c5WHptaFeD88oto6GEYs&libraries=places"></script>
+    <!-- Substitua YOUR_API_KEY pelo seu próprio Google Maps API Key -->
+</body>
+
+</html>
