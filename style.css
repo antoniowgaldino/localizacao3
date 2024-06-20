@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+button {
+    display: block;
+    width: 170px;
+    height: 45px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#coordinates {
+    margin-bottom: 10px;
+}
+
+#address {
+    margin-bottom: 10px;
+}
+
+#datetime {
+    margin-bottom: 20px;
+}
+
+.link-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.link-container a {
+    display: block;
+    width: 100px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.link-container a:hover {
+    background-color: #0056b3;
+}
+
+#google-maps-link, #whatsapp-link {
+    display: none;
+}
