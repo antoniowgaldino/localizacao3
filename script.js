@@ -18,7 +18,7 @@ function showPosition(position) {
 
     // Exibindo mapa usando API do Google Maps
     var mapDiv = document.getElementById('map');
-    var mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?center=' + latitude + ',' + longitude + '&zoom=18&size=400x300&markers=color:red%7Clabel:A%7C' + latitude + ',' + longitude + '&key=AIzaSyDlH165ZQT9IS3c5WHptaFeD88oto6GEYs';
+    var mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?center=' + latitude + ',' + longitude + '&zoom=19&size=400x300&markers=color:green%7C' + latitude + ',' + longitude + '&key=AIzaSyDlH165ZQT9IS3c5WHptaFeD88oto6GEYs';
     mapDiv.innerHTML = '<img src="' + mapUrl + '" alt="Mapa">';
 
     // Mostra as coordenadas na tela

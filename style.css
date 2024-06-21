@@ -2,26 +2,32 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
+    background-color: #F7F7F7;
+    margin-top: 40px;
 }
 
 button {
     display: block;
-    width: 170px;
+    width: 150px;
     height: 45px;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #8AAE00;
     color: #fff;
     text-decoration: none;
     border: none;
     border-radius: 5px;
     text-align: center;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 1.5;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #688300;
+}
+
+#img {
+    width: 300px;
 }
 
 #coordinates {
@@ -36,29 +42,35 @@ button:hover {
     margin-bottom: 20px;
 }
 
+.corpo {
+    width: 400px;
+    margin: 0 auto;
+    align-content: center;
+}
+
 .link-container {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 20px;
     padding: 10px;
 }
 
 .link-container a {
     display: block;
+    align-self: center;
     width: 100px;
-    padding: 10px;
-    background-color: #007bff;
+    padding: 13.5px;
+    background-color: #8AAE00;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 12px;
     text-align: center;
     line-height: 1.5;
 }
 
 .link-container a:hover {
-    background-color: #0056b3;
+    background-color: #688300;
 }
 
 #google-maps-link, #whatsapp-link {
